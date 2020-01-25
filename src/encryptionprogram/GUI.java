@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Kieran Bates
+ * January 25, 2020
+ * This program encrypts and decrypts messages according to a specified character shift algorithm and also has the option to encrypt and decrypt using random character shifts
  */
 
 package encryptionprogram;
@@ -147,47 +147,47 @@ public class GUI extends javax.swing.JFrame {
     public boolean toggleMode = false;
     public String randomNumberMaster = "";
     private void encryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encryptButtonActionPerformed
-        if(toggleMode == false)
+        if(toggleMode == false) //If super mode isn't selected
         {
-        String message = encryptInput.getText();
+        String message = encryptInput.getText(); //Store input in a variable
         
         int charNumber = 0;
-        String encryptedMessage = "";
-        for(int i = 0; i<=message.length()-1; i++)
+        String encryptedMessage = ""; //Create a string for the encrypted message
+        for(int i = 0; i<=message.length()-1; i++)//Loop for all characters in the original message
         {
-            charNumber = (int)message.charAt(i);
-            charNumber = charNumber+5;
-            encryptedMessage += (char)charNumber;
+            charNumber = (int)message.charAt(i);//Find the corresponding int for a character
+            charNumber = charNumber+5; //Shift it by five
+            encryptedMessage += (char)charNumber; //Store the shifted character in the encrypted message
         }
         
-        decryptOutput.setText(encryptedMessage);
+        decryptOutput.setText(encryptedMessage); //Show the encrypted message
         }
         
-        if(toggleMode == true)
+        if(toggleMode == true) //If super mode is activated
         {
-            Random random = new Random();
-            String message = encryptInput.getText();
+            Random random = new Random();//Create a new random object
+            String message = encryptInput.getText(); //Store the message to be encrypted in a string
             
             int charNumber = 0;
             int randomNumber = 0;
-            String encryptedMessage = "";
-            int randomNumbers[] = new int[message.length()];
-            for(int i = 0; i<=message.length()-1; i++)
+            String encryptedMessage = "";//Create a variable for the encrypted message
+            int randomNumbers[] = new int[message.length()];//Create an array to store the random character shifts that were generated
+            for(int i = 0; i<=message.length()-1; i++)//Shift every character
             {
-                charNumber = (int)message.charAt(i);
-                randomNumber = random.nextInt(9);
-                charNumber = charNumber+randomNumber;
-                encryptedMessage += (char)charNumber;
-                randomNumberMaster += randomNumber;
+                charNumber = (int)message.charAt(i);//Find the character number of a specific character
+                randomNumber = random.nextInt(9);//generate a random shift factor
+                charNumber = charNumber+randomNumber;//Randomly shift the character
+                encryptedMessage += (char)charNumber;//Store the shifted character in the encrypted message variable
+                randomNumberMaster += randomNumber;//Store the random shift number in a "key" variable for use in decryption
             }
             
-            decryptOutput.setText(encryptedMessage);
+            decryptOutput.setText(encryptedMessage);//Show the encrypted message in a text box
         }
     }//GEN-LAST:event_encryptButtonActionPerformed
 
     private void decryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptButtonActionPerformed
         
-        if(toggleMode == false)
+        if(toggleMode == false) //Everything here is the exact opposite of what is written above unless otherwise stated
         {
         String message = decryptInput.getText();
         
@@ -196,7 +196,7 @@ public class GUI extends javax.swing.JFrame {
         for(int i = 0; i<=message.length()-1; i++)
         {
             charNumber = (int)message.charAt(i);
-            charNumber = charNumber-5;
+            charNumber = charNumber-5;//Shift the characters back to a decrypted state
             decryptedMessage += (char)charNumber;
         }
         
@@ -212,12 +212,12 @@ public class GUI extends javax.swing.JFrame {
             for(int i = 0; i<=message.length()-1; i++)
             {
                 charNumber = (int)message.charAt(i);
-                charNumber = charNumber-Integer.parseInt(Character.toString(randomNumberMaster.charAt(i)));
+                charNumber = charNumber-Integer.parseInt(Character.toString(randomNumberMaster.charAt(i))); //Shift the characters back based on the random numbers stored in the "key"
                 decryptedMessage += (char)charNumber;
             }
         
             encryptOutput.setText(decryptedMessage);
-            randomNumberMaster = "";
+            randomNumberMaster = "";//Reset the key for the sequence of random numbers used to generate the original encryption
         }
     }//GEN-LAST:event_decryptButtonActionPerformed
 
